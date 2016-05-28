@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import BalanceContainer from '../containers/BalanceContainer'
+import BalanceManager from '../containers/BalanceManager'
 
 class App extends Component {
   constructor(props) {
@@ -9,7 +10,10 @@ class App extends Component {
 
   render() {
     return (
-      <BalanceContainer />
+      <div>
+        <BalanceContainer />
+        <BalanceManager />
+      </div>
     )
   }
 }
