@@ -3,24 +3,82 @@ import React, { Component } from 'react'
 class Manager extends Component {
   constructor() {
     super()
-    this.deposit = this.deposit.bind(this)
-    this.withdraw = this.withdraw.bind(this)
+
+    this.state = {
+      account: 'checking',
+      amount: 0,
+      action: 'deposit'
+    }
+
+    this.handleAccount = this.handleAccount.bind(this)
+    this.handleAmount = this.handleAmount.bind(this)
+    this.handleAction = this.handleAction.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  deposit() {
-    this.props.deposit(10, 'checking')
+  handleAccount(e) {
+    this.setState({account: e.target.value})
   }
 
-  withdraw() {
-    this.props.withdraw(10, 'checking')
+  handleAmount(e) {
+    this.setState({amount: e.target.value})
+  }
+
+  handleAction(e) {
+    this.setState({action: e.target.value})
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    console.log('hi')
   }
 
   render() {
     return (
       <div>
         <h1>Add Balance</h1>
-        <button onClick={this.deposit}>+</button>
-        <button onClick={this.withdraw}>-</button>
+
+          <h2>Select Account</h2>
+          <input
+            type="radio"
+            value="checking"
+            onChange={this.handleAccount}
+            checked={"checking" === this.state.account}
+          /> Checking
+          <br />
+          <input
+            type="radio"
+            value="savings"
+            onChange={this.handleAccount}
+            checked={"savings" === this.state.account}
+          /> Savings
+
+          <h2>Select Action</h2>
+          <input
+            type="radio"
+            value="deposit"
+            onChange={this.handleAction}
+            checked={"deposit" === this.state.action}
+          /> Deposit
+          <br />
+          <input
+            type="radio"
+            value="withdraw"
+            onChange={this.handleAction}
+            checked={"withdraw" === this.state.action}
+          /> Withdraw
+
+          <h2>Select Amount</h2>
+          <input
+            type="number"
+            placeholder="00"
+            value={this.state.amount}
+            onChange={this.handleAmount}
+          />
+          <br />
+
+          <input type="button" value={this.state.action}/>
+
       </div>
     )
   }
