@@ -21,7 +21,7 @@ class Manager extends Component {
   }
 
   handleAmount(e) {
-    this.setState({amount: e.target.value})
+    this.setState({amount: parseInt(e.target.value)})
   }
 
   handleAction(e) {
@@ -29,8 +29,16 @@ class Manager extends Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault()
-    console.log('hi')
+    switch (this.state.action) {
+      case 'deposit':
+        this.props.deposit(this.state.amount, this.state.action);
+        break
+      case 'withdraw':
+        this.props.withdraw(this.state.amount, this.state.action);
+        break
+      default:
+        console.error('invalid action!!');
+    }
   }
 
   render() {
@@ -38,47 +46,46 @@ class Manager extends Component {
       <div>
         <h1>Add Balance</h1>
 
-          <h2>Select Account</h2>
-          <input
-            type="radio"
-            value="checking"
-            onChange={this.handleAccount}
-            checked={"checking" === this.state.account}
-          /> Checking
-          <br />
-          <input
-            type="radio"
-            value="savings"
-            onChange={this.handleAccount}
-            checked={"savings" === this.state.account}
-          /> Savings
+            <h2>Select Account</h2>
+            <input
+              type="radio"
+              value="checking"
+              onChange={this.handleAccount}
+              checked={"checking" === this.state.account}
+            /> Checking
+            <br />
+            <input
+              type="radio"
+              value="savings"
+              onChange={this.handleAccount}
+              checked={"savings" === this.state.account}
+            /> Savings
 
-          <h2>Select Action</h2>
-          <input
-            type="radio"
-            value="deposit"
-            onChange={this.handleAction}
-            checked={"deposit" === this.state.action}
-          /> Deposit
-          <br />
-          <input
-            type="radio"
-            value="withdraw"
-            onChange={this.handleAction}
-            checked={"withdraw" === this.state.action}
-          /> Withdraw
+            <h2>Select Action</h2>
+            <input
+              type="radio"
+              value="deposit"
+              onChange={this.handleAction}
+              checked={"deposit" === this.state.action}
+            /> Deposit
+            <br />
+            <input
+              type="radio"
+              value="withdraw"
+              onChange={this.handleAction}
+              checked={"withdraw" === this.state.action}
+            /> Withdraw
 
-          <h2>Select Amount</h2>
-          <input
-            type="number"
-            placeholder="00"
-            value={this.state.amount}
-            onChange={this.handleAmount}
-          />
-          <br />
+            <h2>Select Amount</h2>
+            <input
+              type="number"
+              placeholder="00"
+              value={this.state.amount}
+              onChange={this.handleAmount}
+            />
+            <br />
 
-          <input type="button" value={this.state.action}/>
-
+            <input onClick={this.handleSubmit} type="button" value={this.state.action}/>
       </div>
     )
   }
